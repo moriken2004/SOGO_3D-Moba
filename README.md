@@ -175,6 +175,23 @@ This downloads the project into a new folder called `SOGO_3D-Moba` **inside the 
    The title screen should appear within a second.
    1 秒ほどでタイトル画面が出ます。
 
+   <details>
+   <summary><b>About this URL / この URL について</b></summary>
+
+   - `127.0.0.1` (a.k.a. `localhost`) is the **loopback address** defined by the TCP/IP standard — it always points to the very machine you're typing on, on **every operating system**, regardless of whether you're on Wi-Fi, Ethernet, or even completely offline. **Network environment does not change it.**
+     `127.0.0.1`（別名 `localhost`）は TCP/IP 規格で定められた**ループバックアドレス**で、Wi-Fi・有線・オフラインを問わず、どの OS でも常に「いま操作しているこのマシン自身」を指します。**ネットワーク環境では変化しません。**
+   - **The port number CAN change.** If you started the server with a port other than 8000 (e.g. because of the `Address already in use` fallback), use that port instead: e.g. `http://127.0.0.1:8001/sogo3d.html`.
+     **ポート番号は変わることがあります。** `Address already in use` 時に 8001 などに切り替えた場合は、URL も `http://127.0.0.1:8001/sogo3d.html` のように合わせてください。
+   - **To play from another device (your phone, a friend's laptop on the same Wi-Fi)** — find your computer's LAN IP and use **that** instead of `127.0.0.1`. This is the only case where the URL depends on your network.
+     **同じ Wi-Fi の別端末（スマホ、家族の PC など）から遊びたい時**は、PC の LAN IP を調べて `127.0.0.1` の代わりに使います。これだけがネットワーク依存のケース。
+     - **macOS / Linux** — in another terminal: `ifconfig | grep "inet "` → look for something like `192.168.x.y`
+       別の端末で `ifconfig | grep "inet "` → `192.168.x.y` の行が出る
+     - **Windows** — in PowerShell: `ipconfig` → look at *IPv4 Address* under your active adapter
+       PowerShell で `ipconfig` → 利用中のアダプタの IPv4 アドレス
+     - Then on the other device, visit e.g. `http://192.168.1.42:8000/sogo3d.html`. **Your firewall may need to allow inbound port 8000** for this to work.
+       他の端末から `http://192.168.1.42:8000/sogo3d.html` のように開く。**ファイアウォールでポート 8000 の受信許可が必要**な場合あり。
+   </details>
+
 ### ⏹ Stop the server / サーバ停止
 
 Go back to the terminal window and press <kbd>Ctrl</kbd> + <kbd>C</kbd>. The server stops; the browser tab will then fail to reload (this is expected).
