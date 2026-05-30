@@ -58,8 +58,9 @@
 > The page uses ES-module imports and `fetch()`, so it must be served over a **local HTTP server**. Double-clicking the HTML file (which opens it as `file://`) will not work.
 > このページは ES モジュールと `fetch()` を使うため、**ローカル HTTP サーバ経由で開く必要があります**。HTML ファイルをダブルクリック (`file://`) では動きません。
 
-Three.js 0.160 is loaded automatically from the [unpkg](https://unpkg.com) CDN, so **no `npm install` is needed** — only Python 3 (already on macOS / Linux; on Windows install from [python.org](https://www.python.org/downloads/)).
-Three.js 0.160 は CDN から自動取得されるので **`npm install` 不要** — macOS / Linux ならデフォルトで入っている **Python 3** だけあれば動きます（Windows の場合は [python.org](https://www.python.org/downloads/) からインストール）。
+**Fully offline** — Three.js 0.160 is **vendored locally** under `assets/three/` (1.3 MB), so the project runs without an internet connection or any `npm install`. Only Python 3 is required (already on macOS / Linux; on Windows install from [python.org](https://www.python.org/downloads/)).
+
+**完全オフライン対応** — Three.js 0.160 は `assets/three/` 配下に**同梱済み** (1.3 MB) なので、**ネット接続も `npm install` も不要**で動きます。必要なのは **Python 3** だけ（macOS / Linux なら標準装備、Windows は [python.org](https://www.python.org/downloads/) からインストール）。
 
 ### 🅰 Easiest path — Download ZIP (no Git) / いちばん簡単：ZIP ダウンロード（Git なし）
 
@@ -283,6 +284,9 @@ SOGO_3D-Moba/
 ├── README.md
 ├── LICENSE                        MIT
 └── assets/
+    ├── three/                     vendored Three.js 0.160 (no CDN needed)
+    │   ├── three.module.js
+    │   └── addons/                {controls, environments, postprocessing, loaders, shaders, utils}
     ├── UUV.stl                    patrol drone mesh (~ 12 MB)
     ├── concrete_*.jpg             PBR maps for cage rubble / board base (Poly Haven, CC0)
     ├── rock_06_*.jpg              PBR maps for seabed rocks (Poly Haven, CC0)
@@ -300,7 +304,7 @@ Every asset path in `sogo3d.html` is relative (`assets/…`), so renaming the pa
 
 ## 🙏 Credits / クレジット
 
-- **3D engine** — [Three.js 0.160.0](https://threejs.org/) (MIT)
+- **3D engine** — [Three.js 0.160.0](https://threejs.org/) (MIT) — vendored under `assets/three/`
 - **Concrete / rock / sand PBR maps** — [Poly Haven](https://polyhaven.com/) (CC0)
 - **Hermit crab photo** — user-supplied; processed locally with [rembg](https://github.com/danielgatis/rembg) + ISNet-General-Use matting
 - **Fish photos** — user-supplied; processed via OpenCV + PIL
