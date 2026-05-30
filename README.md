@@ -55,21 +55,146 @@
 
 ## 🚀 Setup / セットアップ
 
-> The page uses ES-module imports and `fetch()`, so it must be served over HTTP — opening with `file://` will not work.
-> ES モジュールと `fetch()` を使うため、`file://` ではなく **HTTP サーバ経由で開く必要があります**。
+> The page uses ES-module imports and `fetch()`, so it must be served over a **local HTTP server**. Double-clicking the HTML file (which opens it as `file://`) will not work.
+> このページは ES モジュールと `fetch()` を使うため、**ローカル HTTP サーバ経由で開く必要があります**。HTML ファイルをダブルクリック (`file://`) では動きません。
+
+Three.js 0.160 is loaded automatically from the [unpkg](https://unpkg.com) CDN, so **no `npm install` is needed** — only Python 3 (already on macOS / Linux; on Windows install from [python.org](https://www.python.org/downloads/)).
+Three.js 0.160 は CDN から自動取得されるので **`npm install` 不要** — macOS / Linux ならデフォルトで入っている **Python 3** だけあれば動きます（Windows の場合は [python.org](https://www.python.org/downloads/) からインストール）。
+
+### 🅰 Easiest path — Download ZIP (no Git) / いちばん簡単：ZIP ダウンロード（Git なし）
+
+If you've never used Git before, this is the fastest way to try the game.
+Git を使ったことがない方は、こちらが最も簡単です。
+
+1. Go to the repository top page → [github.com/moriken2004/SOGO_3D-Moba](https://github.com/moriken2004/SOGO_3D-Moba)
+   リポジトリのトップページを開く。
+2. Click the green **`<> Code`** button → **`Download ZIP`**.
+   緑の **`<> Code`** ボタン → **`Download ZIP`** をクリック。
+3. Open the downloaded `SOGO_3D-Moba-main.zip` and let your OS extract it (double-click on macOS; right-click → *Extract All* on Windows).
+   ダウンロードした ZIP を解凍（macOS はダブルクリック、Windows は右クリック →「すべて展開」）。
+4. Note the folder path — usually `~/Downloads/SOGO_3D-Moba-main`.
+   解凍されたフォルダのパスを覚えておく。通常は `~/Downloads/SOGO_3D-Moba-main`。
+5. **Skip to [Run the local server](#-run-the-local-server--ローカルサーバを起動)** below.
+   下の [ローカルサーバ起動](#-run-the-local-server--ローカルサーバを起動)へ。
+
+### 🅱 With Git / Git でクローン
+
+This path lets you `git pull` future updates with one command.
+こちらは `git pull` で今後の更新を取り込めます。
+
+<details>
+<summary><b>Step 1. Install Git (if you don't have it) / Git をインストール（未インストールの方）</b></summary>
+
+Check first by typing `git --version` in your terminal (see Step 2 for how to open a terminal). If a version number appears, Git is already installed — skip this section.
+
+まず端末で `git --version` を実行（端末の開き方は Step 2 参照）。バージョンが出ればインストール済みなのでこのセクションはスキップ。
+
+- **macOS** — Easiest is to run `xcode-select --install` in Terminal; it installs Git as part of Apple's developer tools.
+  ターミナルで `xcode-select --install` を実行 (Apple の開発者ツールとして Git が一緒に入ります)。
+- **Windows** — Download the installer from <https://git-scm.com/download/win> and run with default settings.
+  <https://git-scm.com/download/win> からインストーラを落として既定設定で実行。
+- **Linux (Debian / Ubuntu)** — `sudo apt update && sudo apt install -y git`
+- **Linux (Fedora)** — `sudo dnf install -y git`
+
+</details>
+
+<details>
+<summary><b>Step 2. Open a terminal / 端末（ターミナル）を開く</b></summary>
+
+- **macOS** — Press <kbd>⌘ Space</kbd>, type "Terminal", press <kbd>Enter</kbd>.
+  <kbd>⌘ Space</kbd> → 「Terminal」と入力 → <kbd>Enter</kbd>。
+- **Windows** — Press <kbd>⊞ Win</kbd>, type "PowerShell" (or "Terminal" on Windows 11), press <kbd>Enter</kbd>.
+  <kbd>⊞ Win</kbd> → 「PowerShell」（Windows 11 なら「Terminal」）と入力 → <kbd>Enter</kbd>。
+- **Linux** — Open the *Terminal* application from your launcher (often <kbd>Ctrl Alt T</kbd>).
+  ランチャーから「ターミナル」を起動（多くの環境では <kbd>Ctrl Alt T</kbd>）。
+
+A window will open with a text prompt — that's where you type commands.
+コマンドを入力する画面が開きます。
+</details>
+
+<details>
+<summary><b>Step 3. Clone the repository / リポジトリをクローン</b></summary>
+
+In the terminal, paste the following line and press <kbd>Enter</kbd>:
+端末に下記を貼り付けて <kbd>Enter</kbd>：
 
 ```sh
-# from this folder / このフォルダで:
-python3 -m http.server 8000
+git clone https://github.com/moriken2004/SOGO_3D-Moba.git
 ```
 
-then open **<http://127.0.0.1:8000/sogo3d.html>** in any modern browser.
+This downloads the project into a new folder called `SOGO_3D-Moba` **inside the current directory** (likely your home folder if you just opened the terminal).
+カレントディレクトリ（端末を開いたばかりなら通常ホームフォルダ）の中に `SOGO_3D-Moba` フォルダができて、全ファイルがダウンロードされます。
 
-Three.js 0.160 is loaded from the [unpkg](https://unpkg.com) CDN via `<script type="importmap">` — **no install step**.
+> **Note** — The repo is about **22 MB** (the UUV.stl drone mesh is 12 MB of it). Download takes a few seconds on a normal connection.
+> リポジトリは約 **22 MB**（うち UUV.stl のドローンメッシュが 12 MB）。普通の回線で数秒。
+</details>
 
-**Live demo via GitHub Pages**: enable in the repo *Settings → Pages*, set source to `main` branch, and visit `https://moriken2004.github.io/SOGO_3D-Moba/sogo3d.html`.
+### ▶ Run the local server / ローカルサーバを起動
 
-**GitHub Pages**: リポジトリ設定 → Pages で `main` ブランチを公開すれば、`https://moriken2004.github.io/SOGO_3D-Moba/sogo3d.html` で誰でも遊べます。
+1. **In the terminal**, change into the project folder:
+   **端末で**プロジェクトフォルダに移動：
+
+   ```sh
+   cd SOGO_3D-Moba            # if you used git clone / Git でクローンした場合
+   # or, for the ZIP download:
+   cd ~/Downloads/SOGO_3D-Moba-main   # ZIP の場合
+   ```
+
+   On Windows, the ZIP usually extracts to `Downloads\SOGO_3D-Moba-main`, so use:
+   Windows で ZIP を解凍した場合は：
+
+   ```powershell
+   cd $HOME\Downloads\SOGO_3D-Moba-main
+   ```
+
+2. Start the local HTTP server:
+   ローカル HTTP サーバを起動：
+
+   ```sh
+   python3 -m http.server 8000
+   ```
+
+   On Windows, the command is usually `python` (without the 3):
+   Windows では `python3` ではなく `python` を使うことが多いです：
+
+   ```powershell
+   python -m http.server 8000
+   ```
+
+   You should see something like `Serving HTTP on :: port 8000 …`. **Leave this window open** — closing it stops the server.
+   `Serving HTTP on :: port 8000 …` と表示されたら成功。**この画面は閉じない**（閉じるとサーバが止まります）。
+
+   > If you see `Address already in use`, port 8000 is taken by another program. Try `8001`, `8002` etc. instead.
+   > `Address already in use` と出たらポート 8000 が他で使われています。`8001` や `8002` を使ってください。
+
+3. Open your browser and visit:
+   ブラウザで開く：
+
+   👉 **<http://127.0.0.1:8000/sogo3d.html>**
+
+   The title screen should appear within a second.
+   1 秒ほどでタイトル画面が出ます。
+
+### ⏹ Stop the server / サーバ停止
+
+Go back to the terminal window and press <kbd>Ctrl</kbd> + <kbd>C</kbd>. The server stops; the browser tab will then fail to reload (this is expected).
+
+端末ウィンドウに戻り <kbd>Ctrl</kbd> + <kbd>C</kbd> を押す。サーバが止まり、ブラウザでリロードしても繋がらなくなります（正常な挙動）。
+
+### 🔄 Get future updates (Git only) / 最新版を取得（Git の場合）
+
+In the terminal, from inside the `SOGO_3D-Moba` folder:
+端末で `SOGO_3D-Moba` フォルダにいる状態で：
+
+```sh
+git pull
+```
+
+### 🌐 Or play instantly via GitHub Pages / GitHub Pages で即プレイ
+
+Once **Settings → Pages → Source = `main` branch** is enabled on the GitHub repo, anyone can play at <https://moriken2004.github.io/SOGO_3D-Moba/sogo3d.html> with no install at all.
+
+リポジトリ設定 → Pages → ソース = `main` ブランチを有効にすれば、誰でも <https://moriken2004.github.io/SOGO_3D-Moba/sogo3d.html> から**インストール不要**で遊べます。
 
 ## 🎮 How to play / 遊び方
 
