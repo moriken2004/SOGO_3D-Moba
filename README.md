@@ -132,49 +132,55 @@ This downloads the project into a new folder called `SOGO_3D-Moba` **inside the 
 
 ### ▶ Run the local server / ローカルサーバを起動
 
-1. **In the terminal**, change into the project folder:
-   **端末で**プロジェクトフォルダに移動：
+The repository ships with a launcher script that **stops any prior local server, starts a new one, and opens it in your browser — all in one command**. From the project folder:
+リポジトリには **「旧サーバを止める → 新サーバを起動 → ブラウザで開く」を 1 行で済ませる**起動スクリプトが同梱されています。プロジェクトフォルダで：
 
-   ```sh
-   cd SOGO_3D-Moba            # if you used git clone / Git でクローンした場合
-   # or, for the ZIP download:
-   cd ~/Downloads/SOGO_3D-Moba-main   # ZIP の場合
-   ```
+```sh
+cd SOGO_3D-Moba            # if you used git clone
+# or: cd ~/Downloads/SOGO_3D-Moba-main    # if you downloaded the ZIP
 
-   On Windows, the ZIP usually extracts to `Downloads\SOGO_3D-Moba-main`, so use:
-   Windows で ZIP を解凍した場合は：
+./run.sh
+```
 
-   ```powershell
-   cd $HOME\Downloads\SOGO_3D-Moba-main
-   ```
+You should see two lines, then your browser pops open at the title screen:
+2 行ほど表示されて、すぐにブラウザでタイトル画面が開きます：
 
-2. Start the local HTTP server:
-   ローカル HTTP サーバを起動：
+```
+serving /…/SOGO_3D-Moba on port 8000 (pid 12345)
+open: http://127.0.0.1:8000/sogo3d.html
+```
 
-   ```sh
-   python3 -m http.server 8000
-   ```
+> **Re-running `./run.sh` is the way to restart** — it auto-kills the previous server first.
+> **再起動はもう一度 `./run.sh` を叩くだけ** — 前回のサーバを自動で止めてから起動し直します。
 
-   On Windows, the command is usually `python` (without the 3):
-   Windows では `python3` ではなく `python` を使うことが多いです：
+> On **Windows**, `run.sh` won't work directly. Use the manual two-step instead:
+> **Windows** ではこのスクリプトは動きません。代わりに 2 ステップ手動で：
+> ```powershell
+> cd $HOME\Downloads\SOGO_3D-Moba-main
+> python -m http.server 8000
+> ```
+> Then visit <http://127.0.0.1:8000/sogo3d.html>.
 
-   ```powershell
-   python -m http.server 8000
-   ```
+<details>
+<summary><b>Manual fallback / 手動で起動したい場合</b></summary>
 
-   You should see something like `Serving HTTP on :: port 8000 …`. **Leave this window open** — closing it stops the server.
-   `Serving HTTP on :: port 8000 …` と表示されたら成功。**この画面は閉じない**（閉じるとサーバが止まります）。
+If you'd rather skip the script:
+スクリプトを使わずに起動したい場合：
 
-   > If you see `Address already in use`, port 8000 is taken by another program. Try `8001`, `8002` etc. instead.
-   > `Address already in use` と出たらポート 8000 が他で使われています。`8001` や `8002` を使ってください。
+```sh
+cd SOGO_3D-Moba
+python3 -m http.server 8000     # use `python` on Windows
+```
 
-3. Open your browser and visit:
-   ブラウザで開く：
+You should see `Serving HTTP on :: port 8000 …`. Leave this window open — closing it stops the server.
+`Serving HTTP on :: port 8000 …` と表示されたら成功。閉じるとサーバが止まるのでウィンドウは開いたままに。
 
-   👉 **<http://127.0.0.1:8000/sogo3d.html>**
+> If you see `Address already in use`, another program owns port 8000. Try `8001`, `8002` etc.
+> `Address already in use` の場合はポート 8000 が使用中。`8001` `8002` などに変えてください。
 
-   The title screen should appear within a second.
-   1 秒ほどでタイトル画面が出ます。
+Then open <http://127.0.0.1:8000/sogo3d.html>.
+
+</details>
 
    <details>
    <summary><b>About this URL / この URL について</b></summary>
